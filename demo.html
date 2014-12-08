@@ -20,44 +20,22 @@
 	    	var timeout = 2000;
 
 	    	function init() {
-		    	document.addEventListener("tabpress", function() {
-		    		var p = document.getElementById("result");
-		    		p.textContent = "TAB pressed!";
-		    		clearTimeout(timeoutUID); timeoutUID = setTimeout(function() {
-		    			p.textContent = "";
-		    		}, timeout);
-		    	}, false);
-		    	document.addEventListener("escapepress", function() {
-		    		var p = document.getElementById("result");
-		    		p.textContent = "Esc pressed!";
-		    		clearTimeout(timeoutUID); timeoutUID = setTimeout(function() {
-		    			p.textContent = "";
-		    		}, timeout);
-		    	}, false);
-		    	document.querySelector("input").addEventListener("backspacepress", function() {
-		    		var p = document.getElementById("result");
-		    		p.textContent = "Backspace pressed and default action blocked!";
-		    		clearTimeout(timeoutUID); timeoutUID = setTimeout(function() {
-		    			p.textContent = "";
-		    		}, timeout);
-		    	}, false);
-		    	document.querySelector("input").addEventListener("enterpress", function() {
-		    		var p = document.getElementById("result");
-		    		p.textContent = "Enter/Return pressed!";
-		    		clearTimeout(timeoutUID); timeoutUID = setTimeout(function() {
-		    			p.textContent = "";
-		    		}, timeout);
-		    	}, false);
-		    	document.querySelector("input").addEventListener("spacepress", function() {
-		    		var p = document.getElementById("result");
-		    		p.textContent = "Spacebar pressed!";
-		    		clearTimeout(timeoutUID); timeoutUID = setTimeout(function() {
-		    			p.textContent = "";
-		    		}, timeout);
-		    	}, false);
+		    	document.addEventListener("tabpress", reportEvt.bind(window, "TAB pressed!"), false);
+		    	document.addEventListener("escapepress", reportEvt.bind(window, "Esc pressed!"), false);
+		    	document.querySelector("input").addEventListener("backspacepress", reportEvt.bind(window, "Backspace pressed and default action blocked!"), false);
+		    	document.querySelector("input").addEventListener("enterpress", reportEvt.bind(window, "Enter/Return pressed!"), false);
+		    	document.querySelector("input").addEventListener("spacepress", reportEvt.bind(window, "Spacebar pressed!"), false);
 		    }
 
 		    document.addEventListener("DOMContentLoaded", init, false);
+
+		    function reportEvt(msg, e) {
+		    	var p = document.getElementById("result");
+	    		p.textContent = msg;
+	    		clearTimeout(timeoutUID); timeoutUID = setTimeout(function() {
+	    			p.textContent = "";
+	    		}, timeout);
+		    }
 	    </script>
 	</head>
 	<body>
