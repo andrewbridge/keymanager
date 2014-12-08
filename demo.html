@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1">
+		<title>
+			KeyManager demo
+		</title>
+		<script src="./KeyManager.js" type="text/javascript"></script>
+	    <script type="text/javascript">
+	    	var kmEvents = {
+			    8: {onlyFocusable: true, eventName: "backspacepress", triggerOn: "active", blockDefaults: true},
+			    9: {onlyFocusable: false, eventName: "tabpress", triggerOn: "document", blockDefaults: false},
+			    13: {onlyFocusable: true, eventName: "enterpress", triggerOn: "active", blockDefaults: false},
+			    27: {onlyFocusable: false, eventName: "escapepress", triggerOn: "document", blockDefaults: true},
+			    32: {onlyFocusable: true, eventName: "spacepress", triggerOn: "active", blockDefaults: false}
+			};
+	    	var km = new KeyManager(kmEvents);
+	    	var timeoutUID = NaN;
+	    	var timeout = 2000;
+
+	    	function init() {
+		    	document.addEventListener("tabpress", function() {
+		    		var p = document.getElementById("result");
+		    		p.textContent = "TAB pressed!";
+		    		clearTimeout(timeoutUID); timeoutUID = setTimeout(function() {
+		    			p.textContent = "";
+		    		}, timeout);
+		    	}, false);
+		    	document.addEventListener("escapepress", function() {
+		    		var p = document.getElementById("result");
+		    		p.textContent = "Esc pressed!";
+		    		clearTimeout(timeoutUID); timeoutUID = setTimeout(function() {
+		    			p.textContent = "";
+		    		}, timeout);
+		    	}, false);
+		    	document.querySelector("input").addEventListener("backspacepress", function() {
+		    		var p = document.getElementById("result");
+		    		p.textContent = "Backspace pressed and default action blocked!";
+		    		clearTimeout(timeoutUID); timeoutUID = setTimeout(function() {
+		    			p.textContent = "";
+		    		}, timeout);
+		    	}, false);
+		    	document.querySelector("input").addEventListener("enterpress", function() {
+		    		var p = document.getElementById("result");
+		    		p.textContent = "Enter/Return pressed!";
+		    		clearTimeout(timeoutUID); timeoutUID = setTimeout(function() {
+		    			p.textContent = "";
+		    		}, timeout);
+		    	}, false);
+		    	document.querySelector("input").addEventListener("spacepress", function() {
+		    		var p = document.getElementById("result");
+		    		p.textContent = "Spacebar pressed!";
+		    		clearTimeout(timeoutUID); timeoutUID = setTimeout(function() {
+		    			p.textContent = "";
+		    		}, timeout);
+		    	}, false);
+		    }
+
+		    document.addEventListener("DOMContentLoaded", init, false);
+	    </script>
+	</head>
+	<body>
+		<p>Demo is currently very rough! Custom events have been set on TAB and Esc at all times and backspace, enter and space when an element has focus.</p>
+		<p id="result"></p>
+		<input type="text" placeholder="Try pressing backspace, enter or space while I'm focussed!" size="60" />
+	</body>
+</html>

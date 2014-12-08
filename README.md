@@ -1,4 +1,4 @@
-keymanager
+KeyManager
 ==========
 
 Simple Javascript class to handle keyboard events.
